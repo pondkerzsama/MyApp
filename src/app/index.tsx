@@ -1,5 +1,5 @@
 import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedIcon } from '@/components/animated-icon';
@@ -8,6 +8,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { Link } from 'expo-router';
 
 function getDevMenuHint() {
   if (Platform.OS === 'web') {
@@ -35,15 +36,22 @@ export default function HomeScreen() {
         <ThemedView style={styles.heroSection}>
           <AnimatedIcon />
           <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
+            Welcome to&nbsp;Preechaporn
           </ThemedText>
         </ThemedView>
+
+        <Link href="/products" asChild>
+          <TouchableOpacity style={{ backgroundColor: '#7B2CBF', padding: 15, borderRadius: 8, marginTop: 20 }}>
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>ไปหน้า Products 🚀</Text>
+          </TouchableOpacity>
+        </Link>
 
         <ThemedText type="code" style={styles.code}>
           get started
         </ThemedText>
 
         <ThemedView type="backgroundElement" style={styles.stepContainer}>
+
           <HintRow
             title="Try editing"
             hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}

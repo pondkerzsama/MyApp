@@ -1,40 +1,25 @@
 import { Feather, Ionicons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const mockProducts = [
-  {
-    id: '1',
-    title: 'Ergonomic Chair ENCLOSE',
-    stock: 12,
-    category: 'chair',
-    location: 3,
-    price: 21999,
-    status: 'Active',
-    image: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTV_uuZX7S5YV3W4zfUpscNqgjCXYwKZIxDU1AZhBdLQENf-zT-MPAB_7M-9clr0zu_vmRXL_0Wx0p4jM_S8f9-CHOSK0feMFbglH2lZz4mNX6UbZ1LPMW4daBbioK75yc2wALc_w&usqp=CAc',
-  },
-  {
-    id: '2',
-    title: 'Ergonomic Chair ESTEEM PLUS',
-    stock: 12,
-    category: 'chair',
-    location: 3,
-    price: 21999,
-    status: 'Active',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd45mkS4O9R0hRuXxUG3L1yVJwACYTGd0wOgtMroaUcg&s=10',
-  },
-  {
-    id: '3',
-    title: 'Ergonomic Chair Embrace',
-    stock: 12,
-    category: 'chair',
-    location: 3,
-    price: 12999,
-    status: 'Active',
-    image: 'https://www.okamura.co.th/wp-content/uploads/2025/06/%E0%B9%81%E0%B8%84%E0%B8%A1%E0%B9%80%E0%B8%9B%E0%B8%8D-16-800x800.jpg',
-  },
-];
+const [products, setProducts] = useState([]); 
 
 export default function ProductsScreen() {
+  const [products, setProducts] = useState<any[]>([]); 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/pondkerzsama/MyApp/refs/heads/main/products.json'); 
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -66,7 +51,7 @@ export default function ProductsScreen() {
         </View>
 
         <ScrollView style={styles.productList} showsVerticalScrollIndicator={false}>
-          {mockProducts.map((item) => (
+          {products.map((item) => (
             <View key={item.id} style={styles.productCard}>
               <View style={styles.cardTopRow}>
                 {/* รูปภาพ */}
